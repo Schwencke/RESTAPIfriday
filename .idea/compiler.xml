@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="devops-starter" />
         <module name="dat3-startcode" />
+        <module name="RESTAPIfriday" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="RESTAPIfriday" options="-endorseddirs &quot;G:\Mit drev\Datamatiker\Sem3\RESTAPIfriday\target/endorsed&quot;" />
       <module name="dat3-startcode" options="-endorseddirs &quot;G:\Mit drev\Datamatiker\Sem3\dat3-startcode\target/endorsed&quot;" />
       <module name="devops-starter" options="-endorseddirs &quot;C:\Users\Administrator\Google Drive\Datamatiker\Sem3\dat3-startcode\target/endorsed&quot;" />
     </option>
