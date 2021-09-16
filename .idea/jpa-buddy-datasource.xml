@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-source-infos>
+      <data-source-info id="c90cd8ed-f1eb-4f49-ae93-30bf7ae334cd" persistence-unit-name="PuTest" />
+      <data-source-info id="c90cd8ed-f1eb-4f49-ae93-30bf7ae334cd" persistence-unit-name="pu" />
+    </data-source-infos>
+  </component>
+</project>
