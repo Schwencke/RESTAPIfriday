@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.PersonsDTO;
 import dtos.PersonDTO;
+import errorhandling.ExceptionDTO;
+import errorhandling.NewException;
 import facades.PersonFacade;
 import utils.EMF_Creator;
 
@@ -13,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-//Todo alter path to appname
+
 @Path("person")
 public class PersonResource {
 
@@ -24,8 +26,7 @@ public class PersonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
-        List<PersonsDTO> psd = FACADE.getAllPersons();
-        return Response.ok().entity(GSON.toJson(psd)).build();
+        return Response.ok().entity(GSON.toJson(FACADE.getAllPersons())).build();
     }
 
     @POST
@@ -55,12 +56,12 @@ public class PersonResource {
         PersonDTO result = FACADE.editPerson(psd);
         return Response.ok().entity(GSON.toJson(result)).build();
     }
-//
-//    @DELETE
-//    @Path("{id}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response delete (@PathParam("id") Long id) throws NewException {
-//        DTOCLASS result = FACADE.delete(id);
-//        return Response.ok().entity(GSON.toJson(result)).build();
-//    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete (@PathParam("id") Integer id) throws ExceptionDTO {
+        PersonDTO result = FACADE.deletePerson(id);
+        return Response.ok().entity(GSON.toJson(result)).build();
+    }
 }

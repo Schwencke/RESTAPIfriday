@@ -9,7 +9,7 @@ package errorhandling;
  *
  * @author jobe
  */
-public class ExceptionDTO {
+public class ExceptionDTO extends Throwable {
     private int code;
     private String message;
   

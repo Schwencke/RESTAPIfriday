@@ -27,6 +27,13 @@ public class PersonDTO {
         this.id = id;
     }
 
+    public PersonDTO(Person ps) {
+        this.fName = ps.getFirstName();
+        this.lName = ps.getLastName();
+        this.phone = ps.getPhone();
+        this.id = ps.getId();
+    }
+
     public static PersonDTO getDto(Person ps){
         return new PersonDTO(ps.getFirstName(), ps.getLastName(), ps.getPhone());
     }

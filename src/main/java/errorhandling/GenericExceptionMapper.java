@@ -34,7 +34,7 @@ public class GenericExceptionMapper implements ExceptionMapper<Throwable>  {
         Response.StatusType type = getStatusType(ex);
         ExceptionDTO err;
         if (ex instanceof WebApplicationException) {
-            err = new ExceptionDTO(type.getStatusCode(), ((WebApplicationException) ex).getMessage());
+            err = new ExceptionDTO(type.getStatusCode(), ex.getMessage());
         } else {
 
             err = new ExceptionDTO(type.getStatusCode(), type.getReasonPhrase());

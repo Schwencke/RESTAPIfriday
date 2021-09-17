@@ -44,21 +44,6 @@ public class FacadeExample {
 
     //TODO: refactor this deletemethod
 
-//    public AnimalDTO delete(long id) throws AnimalNotFoundException {
-//        EntityManager em = emf.createEntityManager();
-//
-//        Animal a = em.find(Animal.class, id);
-//        if (a == null) {
-//            throw new AnimalNotFoundException("Animal with id :" + id + "does not exist");
-//        }
-//
-//        try {
-//            em.getTransaction().begin();
-//            em.remove(a);
-//            em.getTransaction().commit();
-//        }  finally { em.close();
-//        }
-//        return new AnimalDTO(a);
-//    }
+
 
 }
