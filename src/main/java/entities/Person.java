@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.PersonDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +15,9 @@ public class Person {
     private String firstName;
     private String lastName;
     private String phone;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastEdited;
 
     public Person() {
@@ -27,11 +31,36 @@ public class Person {
         this.lastEdited = lastEdited;
     }
 
-    public Person(String firstName, String lastName, String phone,Integer id) {
+    public Person(String firstName, String lastName, String phone,Integer id, Date created) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.id = id;
+        this.created = created;
+    }
+
+    public Person(String firstName, String lastName, String phone) {
+        this.created = new Date();
+        this.lastEdited = created = new Date();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+    }
+
+    public Person(String firstName, String lastName, String phone, Integer id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.id = id;
+    }
+
+    public Person fromDTO(PersonDTO dto, Person ps){
+        ps.setFirstName(dto.getfName());
+        ps.setLastName(dto.getlName());
+        ps.setPhone(dto.getPhone());
+        ps.lastEdited = new Date();
+        return ps;
     }
 
     public Integer getId() {

@@ -1,12 +1,7 @@
 package facades;
 
-import dtos.RenameMeDTO;
-import entities.RenameMe;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import utils.EMF_Creator;
 
 
 public class FacadeExample {
@@ -29,39 +24,23 @@ public class FacadeExample {
         return emf.createEntityManager();
     }
     
-    public RenameMeDTO create(RenameMeDTO rm){
-        RenameMe rme = new RenameMe(rm.getDummyStr1(), rm.getDummyStr2());
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(rme);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-        return new RenameMeDTO(rme);
-    }
-    public RenameMeDTO getById(long id){
-        EntityManager em = emf.createEntityManager();
-        return new RenameMeDTO(em.find(RenameMe.class, id));
-    }
+
+//    public RenameMeDTO getById(long id){
+//        EntityManager em = emf.createEntityManager();
+//        return new RenameMeDTO(em.find(testentity.class, id));
+//    }
     
     //TODO Remove/Change this before use
     public long getRenameMeCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            return (long)em.createQuery("SELECT COUNT(r) FROM RenameMe r").getSingleResult();
+            return (long)em.createQuery("SELECT COUNT(r) FROM testentity r").getSingleResult();
         }finally{  
             em.close();
         }
     }
     
-    public List<RenameMeDTO> getAll(){
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<RenameMe> query = em.createQuery("SELECT r FROM RenameMe r", RenameMe.class);
-        List<RenameMe> rms = query.getResultList();
-        return RenameMeDTO.getDtos(rms);
-    }
+
 
     //TODO: refactor this deletemethod
 
