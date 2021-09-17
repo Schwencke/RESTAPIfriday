@@ -10,6 +10,7 @@ import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.LinkedHashMap;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.MediaType;
@@ -96,7 +97,7 @@ public class PersonResourceTest {
                 .get("/person").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("size()", is(5));
+                .body("all", hasSize(5));
     }
 
     @Test
