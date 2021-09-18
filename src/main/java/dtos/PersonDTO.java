@@ -1,5 +1,6 @@
 package dtos;
 
+import entities.Address;
 import entities.Person;
 
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ public class PersonDTO {
     private Integer id;
     private Date created;
     private Date lastEdited;
+    private String srt;
+    private String zp;
+    private String ct;
 
     public PersonDTO(String fName, String lName, String phone) {
         this.fName = fName;
@@ -34,8 +38,45 @@ public class PersonDTO {
         this.id = ps.getId();
     }
 
+    public PersonDTO(String fName, String lName, String phone, String srt, String zp, String ct) {
+        this.fName = fName;
+        this.lName = lName;
+        this.phone = phone;
+        this.srt = srt;
+        this.zp = zp;
+        this.ct = ct;
+    }
+
     public static PersonDTO getDto(Person ps){
         return new PersonDTO(ps.getFirstName(), ps.getLastName(), ps.getPhone());
+    }
+
+    public static PersonDTO getDtoWithAddress(Person ps, Address ad){
+        return new PersonDTO(ps.getFirstName(), ps.getLastName(), ps.getPhone(), ad.getStreet(), ad.getZip(), ad.getCity());
+    }
+
+    public String getSrt() {
+        return srt;
+    }
+
+    public void setSrt(String srt) {
+        this.srt = srt;
+    }
+
+    public String getZp() {
+        return zp;
+    }
+
+    public void setZp(String zp) {
+        this.zp = zp;
+    }
+
+    public String getCt() {
+        return ct;
+    }
+
+    public void setCt(String ct) {
+        this.ct = ct;
     }
 
     public String getfName() {

@@ -49,6 +49,14 @@ public class Person {
         this.lastName = lastName;
         this.phone = phone;
     }
+    public Person(String firstName, String lastName, String phone,Address address) {
+        this.created = new Date();
+        this.lastEdited = created = new Date();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.address = address;
+    }
 
     public Person(String firstName, String lastName, String phone, Integer id) {
         this.firstName = firstName;
@@ -111,5 +119,13 @@ public class Person {
 
     public void setLastEdited(Date lastEdited) {
         this.lastEdited = lastEdited;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

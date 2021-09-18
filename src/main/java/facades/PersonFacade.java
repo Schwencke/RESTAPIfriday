@@ -2,6 +2,7 @@ package facades;
 
 import dtos.PersonDTO;
 import dtos.PersonsDTO;
+import entities.Address;
 import entities.Person;
 import errorhandling.ExceptionDTO;
 import errorhandling.NewException;
@@ -44,6 +45,24 @@ public class PersonFacade implements IPersonFacade{
             }
             return new PersonDTO(ps.getFirstName(), ps.getLastName(), ps.getPhone(), ps.getId());
         }
+
+
+    public PersonDTO addPersonWithAdress(String fName, String lName, String phone, String srt, String zp, String ct) {
+        EntityManager em = emf.createEntityManager();
+        //TODO: get the address if it exists in database, else new Address!!!!
+        Address address = new Address(srt,zp,ct);
+        Person ps = new Person(fName, lName, phone,address);
+
+        try {
+            em.getTransaction().begin();
+            em.persist(address);
+            em.persist(ps);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(ps);
+    }
 
 
     @Override

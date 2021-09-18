@@ -34,7 +34,7 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String a) {
         PersonDTO rd = GSON.fromJson(a, PersonDTO.class);
-        PersonDTO result = FACADE.addPerson(rd.getfName(),rd.getlName(),rd.getPhone());
+        PersonDTO result = FACADE.addPersonWithAdress(rd.getfName(),rd.getlName(),rd.getPhone(), rd.getSrt(), rd.getZp(),rd.getCt());
         return Response.ok().entity(GSON.toJson(result)).build();
     }
 
