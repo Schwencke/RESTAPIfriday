@@ -4,16 +4,9 @@ import dtos.PersonDTO;
 import dtos.PersonsDTO;
 import entities.Address;
 import entities.Person;
-import errorhandling.ExceptionDTO;
-import errorhandling.NewException;
+import errorhandling.PersonNotFoundException;
 
-import javax.enterprise.inject.Typed;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Date;
+import javax.persistence.*;
 import java.util.List;
 
 public class PersonFacade implements IPersonFacade{
@@ -49,9 +42,20 @@ public class PersonFacade implements IPersonFacade{
 
     public PersonDTO addPersonWithAdress(String fName, String lName, String phone, String srt, String zp, String ct) {
         EntityManager em = emf.createEntityManager();
-        //TODO: get the address if it exists in database, else new Address!!!!
-        Address address = new Address(srt,zp,ct);
+        Address address;
+            TypedQuery<Long> query = em.createQuery("select count(a) from Address a where a.street =:street", Long.class);
+            query.setParameter("street", srt);
+            long count = query.getSingleResult();
+            if (count >= 1){
+                TypedQuery<Address> query1 = em.createQuery("select a from Address a where a.street =:street", Address.class);
+                query1.setParameter("street", srt);
+                address = query1.getSingleResult();
+            } else {
+                address = new Address(srt,zp,ct);
+            }
+
         Person ps = new Person(fName, lName, phone,address);
+        address.addOccupants(ps);
 
         try {
             em.getTransaction().begin();
@@ -66,7 +70,7 @@ public class PersonFacade implements IPersonFacade{
 
 
     @Override
-    public PersonDTO deletePerson(int id) throws ExceptionDTO {
+    public PersonDTO deletePerson(int id) throws PersonNotFoundException {
 
         EntityManager em = emf.createEntityManager();
         Person p;
@@ -74,7 +78,7 @@ public class PersonFacade implements IPersonFacade{
             em.getTransaction().begin();
             p = em.find(Person.class, id);
             if (p == null) {
-                throw new ExceptionDTO(404,"Could not delete, provided id does not exist");
+                throw new PersonNotFoundException("Could not delete, provided id does not exist");
             }
             em.remove(p);
             em.getTransaction().commit();
@@ -85,11 +89,14 @@ public class PersonFacade implements IPersonFacade{
     }
 
     @Override
-    public PersonDTO getPerson(int id) {
+    public PersonDTO getPerson(int id) throws PersonNotFoundException {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = em.createQuery("select p from Person p where p.id =:id",Person.class);
-        query.setParameter("id", id);
-        return PersonDTO.getDto(query.getSingleResult());
+        Person ps;
+        ps = em.find(Person.class, id);
+        if (ps == null){
+            throw new PersonNotFoundException("No person with provided id "+ id + " ,was found");
+        }
+        return PersonDTO.getDto(ps);
 
     }
 
