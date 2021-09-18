@@ -2,17 +2,15 @@ package facades;
 
 import dtos.PersonDTO;
 import dtos.PersonsDTO;
+import entities.Address;
 import entities.Person;
 import errorhandling.ExceptionDTO;
-import errorhandling.NewException;
+import errorhandling.PersonNotFoundException;
 
-import javax.enterprise.inject.Typed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 public class PersonFacade implements IPersonFacade{
@@ -32,8 +30,9 @@ public class PersonFacade implements IPersonFacade{
     }
 
     @Override
-    public PersonDTO addPerson(String fName, String lName, String phone) {
+    public PersonDTO addPerson(String fName, String lName, String phone, Address address) {
             Person ps = new Person(fName, lName, phone);
+
             EntityManager em = emf.createEntityManager();
             try {
                 em.getTransaction().begin();
@@ -47,7 +46,7 @@ public class PersonFacade implements IPersonFacade{
 
 
     @Override
-    public PersonDTO deletePerson(int id) throws ExceptionDTO {
+    public PersonDTO deletePerson(int id) throws PersonNotFoundException {
 
         EntityManager em = emf.createEntityManager();
         Person p;
@@ -55,7 +54,7 @@ public class PersonFacade implements IPersonFacade{
             em.getTransaction().begin();
             p = em.find(Person.class, id);
             if (p == null) {
-                throw new ExceptionDTO(404,"Could not delete, provided id does not exist");
+                throw new PersonNotFoundException("Could not delete, provided id does not exist");
             }
             em.remove(p);
             em.getTransaction().commit();
@@ -107,32 +106,32 @@ public class PersonFacade implements IPersonFacade{
 
     }
 
-    public static void main(String[] args) {
-        populate();
-    }
-
-    private static void populate() {
-        EntityManager em = emf.createEntityManager();
-        Person et = new Person("Thomas", "Overgaard", "11");
-        Person to = new Person("Thomas", "Overgaard", "111");
-        Person tre = new Person("Thomas", "Overgaard", "111");
-        Person fire = new Person("Thomas", "Overgaard", "111");
-        Person fem = new Person("Thomas", "Overgaard", "111");
-
-        try {
-          em.getTransaction().begin();
-          em.persist(et);
-          em.persist(to);
-          em.persist(tre);
-          em.persist(fire);
-          em.persist(fem);
-          em.getTransaction().commit();
-        }
-         finally {
-            em.close();
-        }
-
-
-    }
+//    public static void main(String[] args) {
+//        populate();
+//    }
+//
+//    private static void populate() {
+//        EntityManager em = emf.createEntityManager();
+//        Person et = new Person("Thomas", "Overgaard", "11");
+//        Person to = new Person("Thomas", "Overgaard", "111");
+//        Person tre = new Person("Thomas", "Overgaard", "111");
+//        Person fire = new Person("Thomas", "Overgaard", "111");
+//        Person fem = new Person("Thomas", "Overgaard", "111");
+//
+//        try {
+//          em.getTransaction().begin();
+//          em.persist(et);
+//          em.persist(to);
+//          em.persist(tre);
+//          em.persist(fire);
+//          em.persist(fem);
+//          em.getTransaction().commit();
+//        }
+//         finally {
+//            em.close();
+//        }
+//
+//
+//    }
 
 }

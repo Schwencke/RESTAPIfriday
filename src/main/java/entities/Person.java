@@ -19,9 +19,12 @@ public class Person {
     private Date created;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastEdited;
+    @ManyToOne
+    private Address address;
 
     public Person() {
     }
+
 
     public Person(String firstName, String lastName, String phone, Date created, Date lastEdited) {
         this.firstName = firstName;
@@ -46,6 +49,7 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+        this.address = new Address();
     }
 
     public Person(String firstName, String lastName, String phone, Integer id) {
@@ -61,6 +65,14 @@ public class Person {
         ps.setPhone(dto.getPhone());
         ps.lastEdited = new Date();
         return ps;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Integer getId() {

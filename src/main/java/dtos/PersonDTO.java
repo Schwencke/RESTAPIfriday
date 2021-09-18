@@ -1,5 +1,6 @@
 package dtos;
 
+import entities.Address;
 import entities.Person;
 
 import java.util.ArrayList;
@@ -13,11 +14,23 @@ public class PersonDTO {
     private Integer id;
     private Date created;
     private Date lastEdited;
+    private String street;
+    private String zip;
+    private String city;
 
     public PersonDTO(String fName, String lName, String phone) {
         this.fName = fName;
         this.lName = lName;
         this.phone = phone;
+    }
+
+    public PersonDTO(String fName, String lName, String phone, Integer id, Date created, Date lastEdited, String street, String zip, String city) {
+        this.fName = fName;
+        this.lName = lName;
+        this.phone = phone;
+        this.street = street;
+        this.zip = zip;
+        this.city = city;
     }
 
     public PersonDTO(String fName, String lName, String phone, Integer id) {
@@ -36,6 +49,30 @@ public class PersonDTO {
 
     public static PersonDTO getDto(Person ps){
         return new PersonDTO(ps.getFirstName(), ps.getLastName(), ps.getPhone());
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getfName() {

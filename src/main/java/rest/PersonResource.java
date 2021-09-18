@@ -2,10 +2,10 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.PersonsDTO;
 import dtos.PersonDTO;
+import entities.Address;
 import errorhandling.ExceptionDTO;
-import errorhandling.NewException;
+import errorhandling.PersonNotFoundException;
 import facades.PersonFacade;
 import utils.EMF_Creator;
 
@@ -13,7 +13,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 
 @Path("person")
@@ -34,6 +33,7 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(String a) {
         PersonDTO rd = GSON.fromJson(a, PersonDTO.class);
+        Address ad = new Address(rd.getStreet(),rd.getZip(),rd.getCity());
         PersonDTO result = FACADE.addPerson(rd.getfName(),rd.getlName(),rd.getPhone());
         return Response.ok().entity(GSON.toJson(result)).build();
     }
@@ -60,7 +60,7 @@ public class PersonResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete (@PathParam("id") Integer id) throws ExceptionDTO {
+    public Response delete (@PathParam("id") Integer id) throws PersonNotFoundException {
         PersonDTO result = FACADE.deletePerson(id);
         return Response.ok().entity(GSON.toJson(result)).build();
     }

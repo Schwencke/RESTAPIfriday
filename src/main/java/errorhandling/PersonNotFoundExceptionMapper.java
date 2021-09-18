@@ -11,13 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Provider
-public class NewExceptionMapper extends Throwable implements ExceptionMapper<Throwable> {
+public class PersonNotFoundExceptionMapper extends Throwable implements ExceptionMapper<Throwable> {
 
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
     public Response toResponse(Throwable exception) {
-        Logger.getLogger(NewException.class.getName())
+        Logger.getLogger(PersonNotFoundException.class.getName())
                 .log(Level.SEVERE, null, exception);
         ExceptionDTO err = new ExceptionDTO(404, exception.getMessage());
         return Response
