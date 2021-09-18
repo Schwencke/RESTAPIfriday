@@ -19,6 +19,8 @@ public class Person {
     private Date created;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastEdited;
+    @ManyToOne
+    private Address address;
 
     public Person() {
     }
