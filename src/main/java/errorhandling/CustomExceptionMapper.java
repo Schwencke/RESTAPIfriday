@@ -26,7 +26,7 @@ public class CustomExceptionMapper implements ExceptionMapper<Throwable> {
         if (exception instanceof MissingFieldsException) {
             Logger.getLogger(MissingFieldsException.class.getName())
                     .log(Level.SEVERE, null, exception);
-            err = new ExceptionDTO(404, exception.getMessage());
+            err = new ExceptionDTO(((MissingFieldsException) exception).getErrCode(), exception.getMessage());
         }
 
         return Response
