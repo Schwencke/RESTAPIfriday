@@ -17,9 +17,9 @@ import javax.ws.rs.core.Response;
 @Path("person")
 public class PersonResource {
 
-    private final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
-    private final PersonFacade FACADE =  PersonFacade.getPersonFacade(EMF);
-    private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    private static final PersonFacade FACADE =  PersonFacade.getPersonFacade(EMF);
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
             
     @GET
     @Produces({MediaType.APPLICATION_JSON})
