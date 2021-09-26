@@ -3,6 +3,8 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.PersonDTO;
+import dtos.PersonsDTO;
+import entities.Person;
 import errorhandling.MissingFieldsException;
 import errorhandling.PersonNotFoundException;
 import facades.PersonFacade;
@@ -12,6 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path("person")

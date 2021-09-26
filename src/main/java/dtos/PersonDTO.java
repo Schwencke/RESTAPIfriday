@@ -35,8 +35,12 @@ public class PersonDTO {
         this.fName = ps.getFirstName();
         this.lName = ps.getLastName();
         this.phone = ps.getPhone();
+        this.srt = ps.getAddress().getStreet();
+        this.zp = ps.getAddress().getZip();
+        this.ct = ps.getAddress().getCity();
         this.id = ps.getId();
     }
+
 
     public PersonDTO(String fName, String lName, String phone, String srt, String zp, String ct) {
         this.fName = fName;
@@ -134,6 +138,9 @@ public class PersonDTO {
                 ", lName='" + lName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", id=" + id +
+                ", srt='" + srt + '\'' +
+                ", zp='" + zp + '\'' +
+                ", ct='" + ct + '\'' +
                 '}';
     }
 }

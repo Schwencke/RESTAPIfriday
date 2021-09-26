@@ -65,6 +65,14 @@ public class Person {
         this.id = id;
     }
 
+    public Person(Integer id, String firstName, String lastName, String phone, Address address) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public Person fromDTO(PersonDTO dto, Person ps){
         ps.setFirstName(dto.getfName());
         ps.setLastName(dto.getlName());
@@ -128,4 +136,6 @@ public class Person {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+
 }
