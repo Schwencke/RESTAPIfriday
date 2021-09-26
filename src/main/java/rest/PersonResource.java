@@ -24,7 +24,10 @@ public class PersonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
-        return Response.ok().entity(GSON.toJson(FACADE.getAllPersons())).build();
+        return Response.ok().header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(GSON.toJson(FACADE.getAllPersons())).build();
     }
 
     @POST
@@ -37,10 +40,16 @@ public class PersonResource {
         if (psd.getSrt() != null && psd.getZp() != null && psd.getCt() != null)
         {
             PersonDTO result = FACADE.addPersonWithAdress(psd.getfName(),psd.getlName(),psd.getPhone(), psd.getSrt(), psd.getZp(),psd.getCt());
-            return Response.ok().entity(GSON.toJson(result)).build();
+            return Response.ok().header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(GSON.toJson(result)).build();
         } else {
             PersonDTO result = FACADE.addPerson(psd.getfName(), psd.getlName(), psd.getPhone());
-            return Response.ok().entity(GSON.toJson(result)).build();
+            return Response.ok().header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+                    .header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(GSON.toJson(result)).build();
         }
     }
 
@@ -49,7 +58,10 @@ public class PersonResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getOnId(@PathParam("id")Integer id) throws PersonNotFoundException {
         PersonDTO psd = FACADE.getPerson(id);
-        return Response.ok().entity(GSON.toJson(psd)).build();
+        return Response.ok().header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(GSON.toJson(psd)).build();
     }
 
     @PUT
@@ -61,7 +73,10 @@ public class PersonResource {
         if (psd.getfName() == null || psd.getlName() == null) throw new MissingFieldsException("Firstname and/or lastname is missing");
         psd.setId(id);
         PersonDTO result = FACADE.editPerson(psd);
-        return Response.ok().entity(GSON.toJson(result)).build();
+        return Response.ok().header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(GSON.toJson(result)).build();
     }
 
     @DELETE
@@ -69,6 +84,9 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete (@PathParam("id") Integer id) throws PersonNotFoundException {
         PersonDTO result = FACADE.deletePerson(id);
-        return Response.ok().entity(GSON.toJson(result)).build();
+        return Response.ok().header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD").entity(GSON.toJson(result)).build();
     }
 }

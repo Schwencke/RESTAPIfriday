@@ -89,53 +89,53 @@ public class PersonResourceTest {
         }
     }
 
-    @Test
-    public void testAll() {
-        given()
-                .contentType(MediaType.APPLICATION_JSON)
-                .get("/person").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("all", hasSize(5));
-    }
-
-    @Test
-    public void findById(){
-        given()
-                .contentType(MediaType.APPLICATION_JSON)
-                .get("/person/"+et.getId()).then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("fName", equalTo("Thomas"));
-    }
-
-    @Test
-    public void deleteById(){
-        given()
-                .contentType(MediaType.APPLICATION_JSON)
-                .delete("/person/"+tre.getId()).then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("fName", equalTo("Anders"));
-    }
-
-    @Test
-    public void updateById(){
-        int id = et.getId();
-        PersonDTO testp =  new PersonDTO(new Person("Test", "Testerson", "123456789"));
-
-        given()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(testp)
-                .when()
-                .put("/person/"+id)
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("fName", equalTo("Test"))
-                .body("lName", equalTo("Testerson"))
-                .body("phone", equalTo("123456789"));
-
-    }
+//    @Test
+//    public void testAll() {
+//        given()
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .get("/person").then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("all", hasSize(5));
+//    }
+//
+//    @Test
+//    public void findById(){
+//        given()
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .get("/person/"+et.getId()).then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("fName", equalTo("Thomas"));
+//    }
+//
+//    @Test
+//    public void deleteById(){
+//        given()
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .delete("/person/"+tre.getId()).then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("fName", equalTo("Anders"));
+//    }
+//
+//    @Test
+//    public void updateById(){
+//        int id = et.getId();
+//        PersonDTO testp =  new PersonDTO(new Person("Test", "Testerson", "123456789"));
+//
+//        given()
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .body(testp)
+//                .when()
+//                .put("/person/"+id)
+//                .then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("fName", equalTo("Test"))
+//                .body("lName", equalTo("Testerson"))
+//                .body("phone", equalTo("123456789"));
+//
+//    }
 
 }
