@@ -1,5 +1,6 @@
 package rest;
 
+import cors.CorsFilter;
 import entities.Person;
 import errorhandling.CustomExceptionMapper;
 
@@ -28,6 +29,7 @@ public class ApplicationConfig extends Application {
         resources.add(org.glassfish.jersey.server.wadl.internal.WadlResource.class);
         resources.add(PersonResource.class);
         resources.add(Person.class);
+        resources.add(CorsFilter.class);
     }
     
 }
